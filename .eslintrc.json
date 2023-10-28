@@ -10,7 +10,6 @@
       "plugin:@typescript-eslint/recommended"
     ],
     "rules": {
-      "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
@@ -20,6 +19,9 @@
       "@typescript-eslint/array-type": "error",
       "import/no-unresolved": 0,
       "import/prefer-default-export": 0,
-      "no-console": 0
+      "no-console": 0,
+      "no-underscore-dangle": 0,
+      "no-useless-constructor": "off",
+      "@typescript-eslint/no-useless-constructor": "error",
     }
   }

@@ -1,0 +1,15 @@
+<div class="comments">
+    <ul class="comments__list">
+        <li *ngFor="let comment of comments">
+            <app-comments-item [item]="comment"></app-comments-item>
+        </li>
+    </ul>
+    <form [formGroup]="form" (submit)="onSubmit()">
+        <div>
+            <input type="text"  formControlName="text">
+        </div>
+        <div>
+            <button type="submit" [disabled]="form.invalid">>>>></button>
+        </div>
+    </form>
+</div>
