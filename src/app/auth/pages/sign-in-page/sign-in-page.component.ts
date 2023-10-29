@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in-page',
@@ -11,7 +12,7 @@ import { AuthService } from '../../services/auth.service';
 export class SignInPageComponent {
   form: FormGroup;
 
-  constructor(private _fb: FormBuilder, private _auth: AuthService) {
+  constructor(private _fb: FormBuilder, private _auth: AuthService, private _router: Router) {
     this.form = this._fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
@@ -20,8 +21,12 @@ export class SignInPageComponent {
 
   onSubmit() {
     const {email, password} = this.form.value;
-      this._auth.signIn(email, password).then(
-        data => console.log(data)
-      )
+      this._auth.signIn(email, password)
+        .then(
+          _ => {
+            this._router.navigate(['/portal']);
+          }
+        )
+        .catch(err => console.log('Err', err))
   }
 }

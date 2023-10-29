@@ -1,0 +1,15 @@
+@import '../../../../styles/variables';
+
+header {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    background: $color-grey;
+}
+footer {
+    background: $color-grey;
+    height: 50px;
+}
+main {
+    padding: 30px 10px
+}

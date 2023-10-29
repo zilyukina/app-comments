@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ICommment } from '../../model/comment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CollectionReference, Firestore, collection, collectionData } from '@angular/fire/firestore';
+import {  Firestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { DataService } from 'src/app/core/services/data.service';
 
 @Component({
   selector: 'app-comments',
@@ -13,18 +13,20 @@ export class CommentsComponent implements OnInit {
   comments!: Observable<any> ;
   form: FormGroup;
 
-  constructor(private _fb: FormBuilder, private _fs: Firestore) {
+  constructor(private _fb: FormBuilder, private _fs: Firestore, private _ds: DataService) {
     this.form = this._fb.group({
       text: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
-    const commentsCollectionRef = collection(this._fs, 'comments');
-    this.comments = collectionData(commentsCollectionRef);
+    this.comments = this._ds.getComments();
   }
 
   onSubmit(): void {
-    this.form.reset();
+    const { text } = this.form.value;
+    this._ds.addComment(text).then(
+      _ => this.form.reset()
+    )
   }
 }
