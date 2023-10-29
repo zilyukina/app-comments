@@ -1,6 +1,5 @@
-import { IUser } from "./user";
 
 export interface ICommment {
-    author: IUser;
+    userUID: string;
     text: string;
 }

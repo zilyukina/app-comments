@@ -1,7 +1,9 @@
 <div class="item" *ngIf="item">
-    <div class="item__image"></div>
+    <div class="item__image">
+        <img [src]="getUserData(item.userUID, 'imgUrl')" alt="">
+    </div>
     <div class="item__data">
-        <div class="item__name">{{ item.author.name }}</div>
+        <div class="item__name">{{ getUserData(item.userUID, 'name') }}</div>
         <div class="item__text">{{ item.text }}</div>
     </div>
 </div>

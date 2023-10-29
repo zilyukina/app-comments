@@ -1,11 +1,11 @@
 <div class="wrapper">
-    <form [formGroup]="form">
+    <form [formGroup]="form" (submit)="onSubmit()">
         <div>
             <p>
-                <label for="login">Логин: </label>
+                <label for="email">Email: </label>
             </p>
             <p>
-                <input id="login" type="text"  formControlName="login">
+                <input id="email" type="text"  formControlName="email">
             </p>
         </div>
         <div>

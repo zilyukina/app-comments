@@ -1,9 +1,9 @@
 <div class="comments">
-    <!-- <ul class="comments__list">
-        <li *ngFor="let comment of comments">
+    <ul class="comments__list">
+        <li *ngFor="let comment of comments | async">
             <app-comments-item [item]="comment"></app-comments-item>
         </li>
-    </ul> -->
+    </ul>
     <form [formGroup]="form" (submit)="onSubmit()">
         <div>
             <input type="text"  formControlName="text">

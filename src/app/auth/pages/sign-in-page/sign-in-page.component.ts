@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sign-in-page',
@@ -10,10 +11,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SignInPageComponent {
   form: FormGroup;
 
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb: FormBuilder, private _auth: AuthService) {
     this.form = this._fb.group({
-      login: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required],
     });
+  }
+
+  onSubmit() {
+    const {email, password} = this.form.value;
+      this._auth.signIn(email, password).then(
+        data => console.log(data)
+      )
   }
 }
