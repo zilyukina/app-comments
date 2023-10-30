@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ICommment } from '../../model/comment';
 import { DataService } from 'src/app/core/services/data.service';
 import { IUser } from 'src/app/core/model/user';
+import { Timestamp } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-comments-item',
@@ -18,5 +19,9 @@ export class CommentsItemComponent {
       return  '';
     }
     return user[prop];
+  }
+
+  getDate(timestamp: Timestamp) {
+    return new Date(timestamp.seconds * 1000)
   }
 }

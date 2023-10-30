@@ -12,11 +12,13 @@
             <div class="row__item row__item--buttons">
                 <button (click)="toggleEmojiPicker($event)"  type="button">
                     <svg-icon-sprite
+                        [classes]="'my-icon-class'"
                         [src]="'assets/sprites/sprite.svg#insert_emoticon'"
                         ></svg-icon-sprite>
                 </button>
                 <button type="submit" [disabled]="form.invalid">
                     <svg-icon-sprite
+                        [classes]="'my-icon-class'"
                         [src]="'assets/sprites/sprite.svg#send'"
                         ></svg-icon-sprite>
                 </button>

@@ -3,7 +3,7 @@
         <img [src]="getUserData(item.userUID, 'imgUrl')" alt="">
     </div>
     <div class="item__data">
-        <div class="item__name">{{ getUserData(item.userUID, 'name') }}</div>
+        <div class="item__name"><span>{{ getUserData(item.userUID, 'name') }}</span><span class="item__date">{{ getDate(item.createdAt) | date:'dd.MM.yyyy hh:mm' }}</span></div>
         <div class="item__text">{{ item.text }}</div>
     </div>
 </div>

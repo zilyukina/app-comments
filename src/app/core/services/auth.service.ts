@@ -14,8 +14,4 @@ export class AuthService {
   signOut(): Promise<any>  {
     return this._fauth.signOut();
   }
-
-  grege() {
-    return this._fauth.currentUser
-  }
 }
