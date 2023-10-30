@@ -14,7 +14,6 @@ export class CommentsItemComponent {
 
   getUserData(userUID: string, prop: keyof IUser): string {
     const user: IUser | undefined = this._ds.users.get(userUID);
-    // console.log(userUID, this._ds.users);
     if (!user) {
       return  '';
     }

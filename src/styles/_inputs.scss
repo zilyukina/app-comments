@@ -1,0 +1,11 @@
+input {
+    height: 56px;
+    width: 100%;
+    padding: 0 10px;
+    border: none;
+    &::placeholder {
+        color: rgba(163, 163, 163, 1);
+        font-size: 14px;
+        font-family: 'IBM Plex Sans', sans-serif;
+    }
+}

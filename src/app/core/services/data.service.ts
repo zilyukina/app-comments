@@ -3,7 +3,9 @@ import { Firestore, collection, collectionData, doc, setDoc } from '@angular/fir
 import { IUser, IUserCollection } from 'src/app/core/model/user';
 import { Subscription } from 'rxjs';
 import { getAuth } from "firebase/auth";
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { serverTimestamp, orderBy } from 'firebase/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { ICommment } from 'src/app/portal/model/comment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +14,9 @@ export class DataService implements OnDestroy {
   currentUserUid: string | undefined;
   users: IUserCollection = new Map();
   readonly commentsCollectionRef = collection(this._fs, 'comments');
+  readonly comments = this._afs.collection<ICommment>('comments', ref => ref.orderBy('createdAt', 'asc'));
   private _subscription$ = new Subscription();
-  constructor(private _fs: Firestore) {
+  constructor(private _fs: Firestore, private _afs: AngularFirestore) {
   }
 
   ngOnDestroy(): void {
@@ -34,7 +37,7 @@ export class DataService implements OnDestroy {
   }
 
   getComments() {
-    return collectionData(this.commentsCollectionRef);
+    return this.comments;
   }
 
   whoAmI() {
@@ -44,6 +47,7 @@ export class DataService implements OnDestroy {
   addComment(text: string) {
     return setDoc(doc(this.commentsCollectionRef), 
       {
+        createdAt: serverTimestamp(),
         text: text,
         userUID: this.currentUserUid,
       }

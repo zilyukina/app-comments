@@ -5,11 +5,25 @@
         </li>
     </ul>
     <form [formGroup]="form" (submit)="onSubmit()">
-        <div>
-            <input type="text"  formControlName="text">
+        <div class="row">
+            <div class="row__item  row__item--input">
+                <input type="text"  formControlName="text" placeholder="Написать комментарий...">
+            </div>
+            <div class="row__item row__item--buttons">
+                <button (click)="toggleEmojiPicker($event)"  type="button">
+                    <svg-icon-sprite
+                        [src]="'assets/sprites/sprite.svg#insert_emoticon'"
+                        ></svg-icon-sprite>
+                </button>
+                <button type="submit" [disabled]="form.invalid">
+                    <svg-icon-sprite
+                        [src]="'assets/sprites/sprite.svg#send'"
+                        ></svg-icon-sprite>
+                </button>
+            </div>
         </div>
-        <div>
-            <button type="submit" [disabled]="form.invalid">>>>></button>
-        </div>
+        <emoji-mart class="emoji-mart" set="twitter" [style]="{ position: 'absolute',  right: '20px', bottom: '100px'}" *ngIf="showEmojiPicker" (emojiSelect)="addEmoji($event)" title="Выберит эмоджу"></emoji-mart>
     </form>
+    
 </div>
+

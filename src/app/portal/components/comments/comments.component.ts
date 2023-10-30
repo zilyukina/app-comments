@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {  Firestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
 import { DataService } from 'src/app/core/services/data.service';
+import {Observable} from 'rxjs'
 
 @Component({
   selector: 'app-comments',
@@ -12,6 +12,7 @@ import { DataService } from 'src/app/core/services/data.service';
 export class CommentsComponent implements OnInit {
   comments!: Observable<any> ;
   form: FormGroup;
+  showEmojiPicker = false;
 
   constructor(private _fb: FormBuilder, private _fs: Firestore, private _ds: DataService) {
     this.form = this._fb.group({
@@ -20,13 +21,27 @@ export class CommentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.comments = this._ds.getComments();
+    this.comments = this._ds.getComments().valueChanges();
+  }
+
+
+  toggleEmojiPicker(event: any) {
+    event.preventDefault();
+    this.showEmojiPicker = !this.showEmojiPicker;
+  }
+
+  addEmoji(event: any) {
+    const {text} = this.form.value || '';
+    this.form.patchValue({
+      text: `${text + event.emoji.native}`
+    })
   }
 
   onSubmit(): void {
     const { text } = this.form.value;
+    this.form.reset();
     this._ds.addComment(text).then(
-      _ => this.form.reset()
+      _ => {}
     )
   }
 }
