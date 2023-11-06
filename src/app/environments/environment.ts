@@ -7,5 +7,6 @@ export const environment = {
         "authDomain": "app-comments-f399a.firebaseapp.com",
         "messagingSenderId": "331952555035",
         "measurementId": "G-6LYTTFE528"
-      }
+      },
+      production: true
 }

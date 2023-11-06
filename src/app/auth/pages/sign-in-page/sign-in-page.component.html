@@ -7,6 +7,7 @@
             <p>
                 <input id="email" type="text"  formControlName="email">
             </p>
+            <span *ngIf="form.get('email')?.hasError('whitespace')">Поле не должно содержать пробелов</span>
         </div>
         <div>
             <p>
@@ -15,9 +16,10 @@
             <p>
                 <input id="password" type="password"  formControlName="password">
             </p>
+            <span *ngIf="form.get('password')?.hasError('whitespace')">Поле не должно содержать пробелов</span>
         </div>
         <div class="wrapper__footer">
-            <button type="submit">ОК</button>
+            <button type="submit" [disabled]="form.invalid">ОК</button>
         </div>
     </form>
 </div>

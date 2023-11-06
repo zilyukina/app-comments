@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { getAuth } from "firebase/auth";
 import { serverTimestamp, orderBy } from 'firebase/firestore';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { ICommment } from 'src/app/portal/model/comment';
+import { IComment } from 'src/app/portal/model/comment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class DataService implements OnDestroy {
   currentUserUid: string | undefined;
   users: IUserCollection = new Map();
   readonly commentsCollectionRef = collection(this._fs, 'comments');
-  readonly comments = this._afs.collection<ICommment>('comments', ref => ref.orderBy('createdAt', 'asc'));
+  readonly comments = this._afs.collection<IComment>('comments', ref => ref.orderBy('createdAt', 'asc'));
   private _subscription$ = new Subscription();
   constructor(private _fs: Firestore, private _afs: AngularFirestore) {
   }

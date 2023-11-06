@@ -1,16 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {  Firestore } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { DataService } from 'src/app/core/services/data.service';
-import {Observable} from 'rxjs'
+import { Observable } from 'rxjs';
+import { EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { IComment } from '../../model/comment';
 
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
-  styleUrls: ['./comments.component.scss']
+  styleUrls: ['./comments.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommentsComponent implements OnInit {
-  comments!: Observable<any> ;
+  comments!: Observable<IComment[]> ;
   form: FormGroup;
   showEmojiPicker = false;
 
@@ -25,21 +28,23 @@ export class CommentsComponent implements OnInit {
   }
 
 
-  toggleEmojiPicker(event: any) {
+  toggleEmojiPicker(event: MouseEvent) {
     event.preventDefault();
     this.showEmojiPicker = !this.showEmojiPicker;
   }
 
-  addEmoji(event: any) {
+  addEmoji(event: EmojiEvent) {
     const {text} = this.form.value || '';
     this.form.patchValue({
       text: `${text + event.emoji.native}`
     })
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     const { text } = this.form.value;
-    this.form.reset();
+    this.form.reset({
+      text: ''
+    });
     this._ds.addComment(text).then(
       _ => {}
     )

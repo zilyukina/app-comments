@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DataService } from 'src/app/core/services/data.service';
@@ -6,7 +6,8 @@ import { DataService } from 'src/app/core/services/data.service';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  styleUrls: ['./layout.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LayoutComponent implements OnInit {
   constructor(private _auth: AuthService, private _router: Router, private _data: DataService) {}
