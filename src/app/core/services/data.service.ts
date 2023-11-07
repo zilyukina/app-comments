@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Firestore, collection, collectionData, doc, setDoc } from '@angular/fire/firestore';
 import { IUser, IUserCollection } from 'src/app/core/model/user';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { getAuth } from "firebase/auth";
 import { serverTimestamp, orderBy } from 'firebase/firestore';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -14,16 +14,16 @@ export class DataService implements OnDestroy {
   currentUserUid: string | undefined;
   users: IUserCollection = new Map();
   readonly commentsCollectionRef = collection(this._fs, 'comments');
-  readonly comments = this._afs.collection<IComment>('comments', ref => ref.orderBy('createdAt', 'asc'));
+  readonly comments$ = this._afs.collection<IComment>('comments', ref => ref.orderBy('createdAt', 'asc'));
   private _subscription$ = new Subscription();
   constructor(private _fs: Firestore, private _afs: AngularFirestore) {
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this._subscription$?.unsubscribe();
   }
 
-  getUsers() {
+  public getUsers() {
     const commentsCollectionRef = collection(this._fs, 'users');
     this._subscription$.add(
       collectionData(commentsCollectionRef)
@@ -36,15 +36,15 @@ export class DataService implements OnDestroy {
     )
   }
 
-  getComments() {
-    return this.comments;
+  public getComments() {
+    return this.comments$;
   }
 
-  whoAmI() {
+  public whoAmI() {
     this.currentUserUid = getAuth().currentUser?.uid;
   }
 
-  addComment(text: string) {
+  public addComment(text: string) {
     return setDoc(doc(this.commentsCollectionRef), 
       {
         createdAt: serverTimestamp(),
@@ -53,6 +53,4 @@ export class DataService implements OnDestroy {
       }
     )
   }
-
-
 }

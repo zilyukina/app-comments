@@ -6,6 +6,7 @@ import { CommentsComponent } from './components/comments/comments.component';
 import { CommentsItemComponent } from './components/comments-item/comments-item.component';
 import { SharedModule } from '../shared/shared.module';
 import { LayoutComponent } from './layout/layout/layout.component';
+import { UserDataPipe } from './pipes/user-data.pipe';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { LayoutComponent } from './layout/layout/layout.component';
     CommentsComponent,
     CommentsItemComponent,
     LayoutComponent,
+    UserDataPipe,
   ],
   imports: [
     PortalRoutingModule,

@@ -12,7 +12,7 @@ import { noWhitespaceValidator } from 'src/app/shared/helpers/forms';
 })
 
 export class SignInPageComponent {
-  form: FormGroup;
+  public form: FormGroup;
 
   constructor(private _fb: FormBuilder, private _auth: AuthService, private _router: Router) {
     this.form = this._fb.group({
@@ -21,7 +21,7 @@ export class SignInPageComponent {
     });
   }
 
-  onSubmit() {
+  public onSubmit(): void {
     const {email, password} = this.form.value;
       this._auth.signIn(email, password)
         .then(

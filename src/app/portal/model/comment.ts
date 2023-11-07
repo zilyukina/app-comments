@@ -4,4 +4,5 @@ export interface IComment {
     userUID: string;
     text: string;
     createdAt: Timestamp;
+    id: string;
 }

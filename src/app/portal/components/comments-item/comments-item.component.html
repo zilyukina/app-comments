@@ -1,9 +1,9 @@
 <div class="item" *ngIf="item">
     <div class="item__image">
-        <img [src]="getUserData(item.userUID, 'imgUrl')" alt="">
+        <img [src]="item.userUID | userData:'imgUrl'" alt="">
     </div>
     <div class="item__data">
-        <div class="item__name"><span>{{ getUserData(item.userUID, 'name') }}</span><span class="item__date">{{ getDate(item.createdAt) | date:'dd.MM.yyyy hh:mm' }}</span></div>
+        <div class="item__name"><span>{{ item.userUID | userData:'name' }}</span><span class="item__date">{{ item.createdAt | fireTimestamp | date:'dd.MM.yyyy hh:mm' }}</span></div>
         <div class="item__text">{{ item.text }}</div>
     </div>
 </div>
